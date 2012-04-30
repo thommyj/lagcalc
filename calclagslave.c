@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 {
   unsigned int s;
   unsigned long long m1,m2;
-  unsigned char p[6];
+  unsigned int p[6];
   char string[100];
   int sizeofll = sizeof(m1);
   char answerinreturn = 0;
@@ -47,19 +47,19 @@ int main(int argc, char **argv)
   strcpy(string,argv[1]);
   stringtolower(string); 
 
-  if(sscanf(string,"%02x:%02x:%02x:%02x:%02x:%02x",&p[0],&p[1],&p[2],&p[3],&p[4],&p[5]) != 6){
+  if(sscanf(string,"%x:%x:%x:%x:%x:%x",&p[0],&p[1],&p[2],&p[3],&p[4],&p[5]) != 6){
     printf("format error\r\n");
     displayOptions(argv[0]);
     return 0;
   }
+ 
 
-   m1 = ((unsigned long long)p[0]<<(5*8))+((unsigned long long)p[1]<<(4*8))+((unsigned long long)p[2]<<(3*8))+((unsigned long long)p[3]<<(2*8))+((unsigned long long)p[4]<<(1*8))+((unsigned long long)p[5]<<(0*8));
-
+  m1 = ((unsigned long long)p[0]<<(5*8))+((unsigned long long)p[1]<<(4*8))+((unsigned long long)p[2]<<(3*8))+((unsigned long long)p[3]<<(2*8))+((unsigned long long)p[4]<<(1*8))+((unsigned long long)p[5]<<(0*8));
 
   strcpy(string,argv[2]);
   stringtolower(string);
 
-  if(sscanf(string,"%02x:%02x:%02x:%02x:%02x:%02x",&p[0],&p[1],&p[2],&p[3],&p[4],&p[5]) != 6){
+  if(sscanf(string,"%x:%x:%x:%x:%x:%x",&p[0],&p[1],&p[2],&p[3],&p[4],&p[5]) != 6){
     printf("format error\r\n");
     displayOptions(argv[0]);
     return 0;
@@ -70,14 +70,14 @@ int main(int argc, char **argv)
 
   if(!answerinreturn)
   {
-    printf("%02X:%02X:%02X:%02X:%02X:%02X",(m2>>(5*8))&0xFF,(m2>>(4*8))&0xFF,(m2>>(3*8))&0xFF,(m2>>(2*8))&0xFF,(m2>>(1*8))&0xFF,(m2>>(0*8))&0xFF);
+    printf("%02X:%02X:%02X:%02X:%02X:%02X",(unsigned int)(m2>>(5*8))&0xFF,(unsigned int)(m2>>(4*8))&0xFF,(unsigned int)(m2>>(3*8))&0xFF,(unsigned int)(m2>>(2*8))&0xFF,(unsigned int)(m2>>(1*8))&0xFF,(unsigned int)(m2>>(0*8))&0xFF);
     printf(" xor ");
-    printf("%02X:%02X:%02X:%02X:%02X:%02X",(m1>>(5*8))&0xFF,(m1>>(4*8))&0xFF,(m1>>(3*8))&0xFF,(m1>>(2*8))&0xFF,(m1>>(1*8))&0xFF,(m1>>(0*8))&0xFF); 
+    printf("%02X:%02X:%02X:%02X:%02X:%02X",(unsigned int)(m1>>(5*8))&0xFF,(unsigned int)(m1>>(4*8))&0xFF,((unsigned int)m1>>(3*8))&0xFF,(unsigned int)(m1>>(2*8))&0xFF,(unsigned int)(m1>>(1*8))&0xFF,(unsigned int)(m1>>(0*8))&0xFF); 
     printf(" mod %d = ",s);
-    printf("%d",(m1^m2)%s); 
+    printf("%d",((unsigned int)(m1^m2))%s); 
     printf("\r\n");
     return 0;
   }else{
-    return (m1^m2)%s;
+    return ((unsigned int)(m1^m2))%s;
   }
 }

@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 {
   unsigned int s;
   unsigned int ip1,ip2,port1,port2;
-  unsigned char p[6];
+  unsigned int p[6];
   char resultinreturn = 0;
  
   if(argc<4){
